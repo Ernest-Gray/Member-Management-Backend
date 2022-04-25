@@ -26,26 +26,26 @@ export class UserControllerController {
   @Get('GetMemberByID')
   async GetMemberByID(@Query('id') id): Promise<User> {
     return await this.userRepository.query(
-      'SELECT * FROM public."user" where id = ' + id,
+      'SELECT * FROM public.user where id = ' + id,
     );
   }
   @Get('GetMokjangMembers')
-  async GetMokjangMembers(@Query('mokid') mokid): Promise<User[]> {
+  async GetMokjangMembers(@Query('mokjang_id') mokjang_id): Promise<User[]> {
     return await this.userRepository.query(
-      'SELECT * FROM public."user" where mokid = ' + mokid,
+      'SELECT * FROM public.user where mokjang_id = ' + mokjang_id,
     );
   }
 
   @Get('GetSarangbangMembers')
   async GetSarangbangMembers(
-    @Query('mokid') mokjangid,
-    @Query('sarangbangid') sarangbangid,
+    @Query('mokjang_id') mokjang_id,
+    @Query('sarangbang_id') sarangbang_id,
   ): Promise<User[]> {
     return await this.userRepository.query(
-      'SELECT * FROM public."user" where mokjangid = \'' +
-        mokjangid +
-        "' and sarangbangid = '" +
-        sarangbangid +
+      'SELECT * FROM public."user" where mokjang_id = \'' +
+        mokjang_id +
+        "' and sarangbang_id = '" +
+        sarangbang_id +
         "'",
     );
   }

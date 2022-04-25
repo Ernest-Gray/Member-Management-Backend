@@ -26,4 +26,7 @@ export class User {
 
   @Column()
   visitation: boolean;
+
+  @Column()
+  mokjang_id: number;
 }
