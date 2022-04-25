@@ -4,6 +4,7 @@ import { Get } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
+//THESE ARE ALL JUST TESTS AND ARE EXAMPLES ONLY
 @Controller('test')
 export class TestController {
   constructor(

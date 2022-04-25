@@ -2,7 +2,11 @@ import { Repository } from 'typeorm';
 import { Controller, Get, Post, Query, Put, Body, Param } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+
+//This controller is a REST API.  Basically, you can make GET POST PUT requests here and when you type in the right
+//http url it will do the code inside.
+//For Example if i go in my web browser and enter <http://127.0.0.1:3000/user-controller/GetMembersByName?name=bob>
+//It would attempt to go to this classes "GetMebersByName" function and try to get all the users with the name 'bob'
 
 @Controller('user-controller')
 export class UserControllerController {

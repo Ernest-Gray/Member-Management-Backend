@@ -1,3 +1,5 @@
+<!-- TO RUN THE BACKEND SO GET AND POST REQUESTS WORK; MAKE SURE YOUR TEMERINAL IS IN THE BACKEND DIRECTORY AND RUN <npm run start:dev> 
+IF npm doesnt recognize the command try typing <npx> first then try <npm run start:dev> again. -->
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
