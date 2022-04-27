@@ -18,22 +18,25 @@ export class UserControllerController {
   //Gets
   @Get('GetMembersByName')
   async GetMembersByName(@Query('name') name: string): Promise<User[]> {
-    return await this.userRepository.query(
-      'SELECT * FROM public."user" where name = \'' + name + "'",
-    );
+    return await this.userRepository.find({ name: name });
+    // return await this.userRepository.query(
+    //   'SELECT * FROM public."user" where name = \'' + name + "'",
+    // );
   }
 
   @Get('GetMemberByID')
   async GetMemberByID(@Query('id') id): Promise<User> {
-    return await this.userRepository.query(
-      'SELECT * FROM public.user where id = ' + id,
-    );
+    return await this.userRepository.findOne({ id: id });
+    // return await this.userRepository.query(
+    //   'SELECT * FROM public.user where id = ' + id,
+    // );
   }
   @Get('GetMokjangMembers')
   async GetMokjangMembers(@Query('mokjang_id') mokjang_id): Promise<User[]> {
-    return await this.userRepository.query(
-      'SELECT * FROM public.user where mokjang_id = ' + mokjang_id,
-    );
+    return await this.userRepository.find({ mokjang_id: mokjang_id });
+    // return await this.userRepository.query(
+    //   'SELECT * FROM public.user where mokjang_id = ' + mokjang_id,
+    // );
   }
 
   @Get('GetSarangbangMembers')
@@ -41,37 +44,47 @@ export class UserControllerController {
     @Query('mokjang_id') mokjang_id,
     @Query('sarangbang_id') sarangbang_id,
   ): Promise<User[]> {
-    return await this.userRepository.query(
-      'SELECT * FROM public."user" where mokjang_id = \'' +
-        mokjang_id +
-        "' and sarangbang_id = '" +
-        sarangbang_id +
-        "'",
-    );
+    return await this.userRepository.find({
+      mokjang_id: mokjang_id,
+      sarangbang_id: sarangbang_id,
+    });
+    // return await this.userRepository.query(
+    //   'SELECT * FROM public."user" where mokjang_id = \'' +
+    //     mokjang_id +
+    //     "' and sarangbang_id = '" +
+    //     sarangbang_id +
+    //     "'",
+    // );
   }
 
   @Get('GetNeedsVisitation')
   async GetNeedsVisitation(): Promise<User[]> {
-    return await this.userRepository.query(
-      'SELECT * FROM public."user" where visitation = true',
-    );
+    return await this.userRepository.find({ visitation: true });
+    // return await this.userRepository.query(
+    //   'SELECT * FROM public."user" where visitation = true',
+    // );
   }
   //Posts
 
   @Put('SetNeedsVisitation')
-  async SetNeedsVisitation(@Body() user: User) {
-    user.visitation = true;
-    return await this.userRepository.update(user.id, user);
+  async SetNeedsVisitation(@Query('id') id) {
+    return await this.userRepository.update(id, { visitation: true });
+  }
+  @Post('CreateUser')
+  async CreateUser(@Body() user: User) {
+    return await this.userRepository.save(user);
   }
   //   example Body
-  //{
-  //     "id": 5,
-  //     "name": "alfred",
-  //     "title": "dev",
-  //     "email": "bob@gmail",
-  //     "phone": "410-124-4123",
-  //     "address": "12397",
-  //     "city": "bobobobobcity",
-  //     "visitation": false
+  //   {
+  //     "id": "0",
+  //     "name": "my name",
+  //     "title": "my title",
+  //     "email": "my_email@gmail.com",
+  //     "phone": "111-111-1111",
+  //     "address": "my address",
+  //     "city": "my city",
+  //     "visitation": false,
+  //     "mokjang_id": 0,
+  //     "sarangbang_id": 0
   // }
 }

@@ -29,4 +29,7 @@ export class User {
 
   @Column()
   mokjang_id: number;
+
+  @Column()
+  sarangbang_id: number;
 }
