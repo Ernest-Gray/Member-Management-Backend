@@ -1,9 +1,12 @@
+import { FamilyEntity } from './entities/family.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User } from './entities/user.entity';
+import { User as UserEntity } from 'src/entities/user.entity';
 import { UserControllerController } from './user-controller/user-controller.controller';
+import { FamilycontrollerController } from './familycontroller/familycontroller.controller';
+import { TestFamilyModule } from './test-family/test-family.module';
 
 @Module({
   imports: [
@@ -16,9 +19,14 @@ import { UserControllerController } from './user-controller/user-controller.cont
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserEntity, FamilyEntity]),
+    TestFamilyModule,
   ],
-  controllers: [AppController, UserControllerController],
+  controllers: [
+    AppController,
+    UserControllerController,
+    FamilycontrollerController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}

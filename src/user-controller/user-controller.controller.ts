@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Controller, Get, Post, Query, Put, Body, Param } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
+import { Controller, Get, Post, Query, Put, Body } from '@nestjs/common';
+import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 //This controller is a REST API.  Basically, you can make GET POST PUT requests here and when you type in the right
@@ -18,7 +18,7 @@ export class UserControllerController {
   //Gets
   @Get('GetMembersByName')
   async GetMembersByName(@Query('name') name: string): Promise<User[]> {
-    return await this.userRepository.find({ name: name });
+    return await this.userRepository.find({ first_name: name });
     // return await this.userRepository.query(
     //   'SELECT * FROM public."user" where name = \'' + name + "'",
     // );
@@ -72,6 +72,7 @@ export class UserControllerController {
   }
   @Post('CreateUser')
   async CreateUser(@Body() user: User) {
+    console.log('Trying to create user: ' + user);
     return await this.userRepository.save(user);
   }
   //   example Body

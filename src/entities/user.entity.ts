@@ -6,11 +6,19 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  //First name
+  @Column({ nullable: false })
+  first_name: string;
+
+  //Last Name
   @Column()
-  name: string;
+  last_name: string;
 
   @Column()
-  title: string;
+  isAdmin: boolean;
+
+  @Column()
+  gender: string;
 
   @Column()
   email: string;
@@ -23,6 +31,22 @@ export class User {
 
   @Column()
   city: string;
+
+  @Column()
+  state: string;
+
+  @Column()
+  zipcode: number;
+
+  @Column()
+  birthdate: Date;
+
+  //User Profile Image; this is a way im currently experimenting with ; Photos require lots of extra work and complications; put on backburner for now
+  // @Column({ type: 'bytea', nullable: false })
+  // profileImage: Buffer;
+
+  @Column()
+  password: string;
 
   @Column()
   visitation: boolean;
