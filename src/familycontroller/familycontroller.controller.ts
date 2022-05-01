@@ -3,6 +3,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { Controller, Get, Post, Query, Put, Body, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from '@nestjs/common';
 
 @Controller('familycontroller')
 export class FamilycontrollerController {
@@ -19,26 +20,34 @@ export class FamilycontrollerController {
   }
 
   @Post('AssignMemberNeedFamily')
-  async AssignMemberNeedFamily(@Param('member_id') member_id: number) {
-    return await this.familyRepository.save({
-      member_id: member_id,
-      family_id: 0,
-      relationship: 'unset relationship',
-      family_name: 'unset family name',
-    });
+  async AssignMemberNeedFamily(@Query('member_id') member_id: number) {
+    const newEntry: FamilyEntity = new FamilyEntity();
+    newEntry.family_id = 1;
+    newEntry.member_id = member_id;
+    newEntry.relationship = 'unset relationship';
+    newEntry.family_name = 'unset family name';
+
+    //this.familyRepository.create(newEntry);
+    return await this.familyRepository.save(newEntry);
   }
 
-  @Put('AddMemberToFamily')
+  @Put('AddMemberToFamily') //There may be a more efficient way to do this function; on todo list
   async AddMemberToFamily(
     @Body() user: User,
-    familyID: number,
+    @Query('family_id') familyID: number,
   ): Promise<FamilyEntity> {
-    console.log(user);
-    return await this.familyRepository.query(
-      'UPDATE family-table SET member_ids = member_ids || ' +
-        user.id +
-        ' WHERE family_id = ' +
-        familyID,
-    );
+    const familyEntry = await this.familyRepository
+      .findOne({
+        member_id: user.id,
+      })
+      .then((familyEntry) => {
+        if (!familyEntry) {
+          throw new NotFoundException('familyEntry with ID not found');
+        } else {
+          return familyEntry;
+        }
+      });
+    familyEntry.family_id = familyID;
+    return this.familyRepository.save(familyEntry);
   }
 }
