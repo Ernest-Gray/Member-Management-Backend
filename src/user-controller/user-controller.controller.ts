@@ -19,12 +19,18 @@ export class UserControllerController {
 
   @Get('GetMembers')
   async GetMembers() {
-    return await this.userRepository.find();
+    return await this.userRepository.find(); //{cache : true}?
   }
 
   @Get('GetMembersByName')
   async GetMembersByName(@Query('name') name: string): Promise<User[]> {
-    return await this.userRepository.find({ first_name: name });
+    return await this.userRepository
+      .createQueryBuilder('names')
+      .select(`LOWER(first_name) first_name`) //getting lowercase
+      .orderBy('LOWER(first_name)', 'ASC')
+      .where(`first_name ILIKE '%${name}%'`) //getting first_name thats like name with any possabilities before or after it, thats the '%' symbol.
+      .getRawMany();
+    // return await this.userRepository.find({ first_name: name });
   }
 
   @Get('GetMemberByID')
