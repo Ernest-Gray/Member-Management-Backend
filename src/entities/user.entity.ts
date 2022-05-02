@@ -38,7 +38,7 @@ export class User {
   @Column()
   zipcode: number;
 
-  @Column()
+  @Column({ type: 'timestamp' })
   birthdate: Date;
 
   //User Profile Image; this is a way im currently experimenting with ; Photos require lots of extra work and complications; put on backburner for now

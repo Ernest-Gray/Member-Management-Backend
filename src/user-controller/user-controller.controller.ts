@@ -16,6 +16,12 @@ export class UserControllerController {
   ) {}
 
   //Gets
+
+  @Get('GetMembers')
+  async GetMembers() {
+    return await this.userRepository.find();
+  }
+
   @Get('GetMembersByName')
   async GetMembersByName(@Query('name') name: string): Promise<User[]> {
     return await this.userRepository.find({ first_name: name });
