@@ -15,6 +15,13 @@ export class UserControllerController {
     private userRepository: Repository<User>,
   ) {}
 
+  //Put Update
+  @Put('UpdateMember')
+  async UpdateMember(@Body() user: User) {
+    console.log('Attempting to Update User: ' + user.id);
+    return await this.userRepository.update(user.id, user);
+  }
+
   //Gets
 
   @Get('GetMembers')
