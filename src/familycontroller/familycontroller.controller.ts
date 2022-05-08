@@ -38,7 +38,7 @@ export class FamilycontrollerController {
   ): Promise<FamilyEntity> {
     const familyEntry = await this.familyRepository
       .findOne({
-        member_id: user.id,
+        member_id: user.member_id,
       })
       .then((familyEntry) => {
         if (!familyEntry) {

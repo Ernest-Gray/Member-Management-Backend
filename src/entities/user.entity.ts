@@ -1,44 +1,93 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 //This entity represents what a user is.  each variable will be a column in a table entry
-@Entity()
+@Entity('Member')
 export class User {
+  //IDs
   @PrimaryGeneratedColumn()
+  member_id: number;
+
+  @Column() //May not be needed;
   id: number;
+
+  @Column()
+  mokjang_id: number;
+
+  @Column()
+  sarangbang_id: number;
+
+  @Column({ default: true })
+  active: boolean;
+
+  @Column({ default: false })
+  admin: boolean;
+
+  @Column()
+  campusname: string;
 
   //First name
   @Column({ nullable: false })
-  first_name: string;
+  efname: string;
+
+  //Middle name
+  @Column({ nullable: false })
+  kfname: string;
+
+  //Middle name
+  @Column({ nullable: false })
+  emname: string;
 
   //Last Name
   @Column()
-  last_name: string;
-
-  @Column()
-  isAdmin: boolean;
+  elname: string;
 
   @Column()
   gender: string;
 
   @Column()
-  email: string;
+  householdid: number;
 
   @Column()
-  phone: string;
+  householdprimarycontact: string;
+
+  //Does the member recieve email notifications?
+  @Column()
+  email_notification: boolean;
 
   @Column()
-  address: string;
+  anniversary: string;
 
   @Column()
-  city: string;
+  image_url: string;
+
+  //Email
+  @Column()
+  homeemail: string;
+
+  //Phone Numbers
+  @Column()
+  homephonenumber: string;
 
   @Column()
-  state: string;
+  mobilephonenumber: string;
+
+  //Address information
+  @Column()
+  homeaddressstreetname1: string;
 
   @Column()
-  zipcode: number;
+  homeaddressstreetname2: string;
 
-  @Column({ type: 'timestamp' })
+  @Column()
+  homeaddresscity: string;
+
+  @Column()
+  homeaddressstate: string;
+
+  @Column()
+  homeaddresszipcode: number;
+
+  @Column({ type: 'date' })
   birthdate: Date;
 
   //User Profile Image; this is a way im currently experimenting with ; Photos require lots of extra work and complications; put on backburner for now
@@ -50,10 +99,4 @@ export class User {
 
   @Column()
   visitation: boolean;
-
-  @Column()
-  mokjang_id: number;
-
-  @Column()
-  sarangbang_id: number;
 }

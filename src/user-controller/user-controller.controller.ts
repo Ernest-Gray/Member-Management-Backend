@@ -18,8 +18,8 @@ export class UserControllerController {
   //Put Update
   @Patch('UpdateMember')
   async UpdateMember(@Body() user: User) {
-    console.log('Attempting to Update User: ' + user.id);
-    return await this.userRepository.update(user.id, user);
+    console.log('Attempting to Update User: ' + user.member_id);
+    return await this.userRepository.update(user.member_id, user);
   }
 
   //Gets
@@ -34,15 +34,15 @@ export class UserControllerController {
     return await this.userRepository
       .createQueryBuilder('names')
       .select(`*`) //select all
-      .orderBy('LOWER(first_name)', 'ASC')
-      .where(`first_name ILIKE '%${name}%'`) //getting first_name thats like name with any possabilities before or after it, thats the '%' symbol.
+      .orderBy('LOWER(efname)', 'ASC')
+      .where(`efname ILIKE '%${name}%'`) //getting first_name thats like name with any possabilities before or after it, thats the '%' symbol.
       .getRawMany();
     //return await this.userRepository.find({ where: { first_name: name } });
   }
 
   @Get('GetMemberByID')
   async GetMemberByID(@Query('id') id): Promise<User> {
-    return await this.userRepository.findOne({ id: id });
+    return await this.userRepository.findOne({ member_id: id });
   }
   @Get('GetMokjangMembers')
   async GetMokjangMembers(@Query('mokjang_id') mokjang_id): Promise<User[]> {

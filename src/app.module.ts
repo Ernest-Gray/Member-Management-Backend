@@ -12,12 +12,12 @@ import { TestFamilyModule } from './test-family/test-family.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      database: 'se412_ernest',
+      host: 'churchofphilippi.cm8d52h57gxl.us-east-2.rds.amazonaws.com',
+      database: 'cosc412db',
       username: 'postgres',
-      password: 'star11',
+      password: 'Race7422!',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: true, //leave off if working with actual production database
     }),
     TypeOrmModule.forFeature([UserEntity, FamilyEntity]),
     TestFamilyModule,
